@@ -9,6 +9,20 @@ running it or have other bug reports or features, that you wish to see implement
 
 I also need a good name that is not as generic as "audio-visualizer-python"!
 
+## Run with Docker
+
+* Build the container
+```
+docker build -t audio-visualizer .
+```
+
+* Run the container
+```
+docker run -v /logo.jpg:/b.jpg -v audio.mp3:/i.mp3 -v /tmp/output:/output -ie TITLE=123 audio-visualizer
+```
+
+This will create a `.mkv` file in your output folder.
+
 Dependencies
 ------------
 You need Python 3, PyQt4, PIL (or Pillow), numpy and the program ffmpeg, which is used to read the audio and render the video.
