@@ -45,7 +45,7 @@ class Core():
   def drawBaseImage(self, backgroundFile, titleText, titleFont, fontSize, alignment,\
                      xOffset, yOffset, textColor, visColor):
     if backgroundFile == '':
-       im = Image.new("RGB", (1280, 720), "black")
+       im = Image.new("RGB", (1920, 1080), "black")
     else:
        im = Image.open(backgroundFile)
 
@@ -53,8 +53,8 @@ class Core():
       self.lastBackgroundImage = backgroundFile
 
       # resize if necessary
-      if not im.size == (1280, 720):
-        im = im.resize((1280, 720), Image.ANTIALIAS)
+      if not im.size == (1920, 1080):
+        im = im.resize((1920, 1080), Image.ANTIALIAS)
 
       self._image = ImageQt(im)
 
@@ -89,19 +89,18 @@ class Core():
 
   def drawBars(self, spectrum, image, color):
 
-    yOffset = -175
-    imTop = Image.new("RGBA", (1280, 360))
+    yOffset = -100
+    imTop = Image.new("RGBA", (1920, 540))
     draw = ImageDraw.Draw(imTop)
     r, g, b = color
     color2 = (r, g, b, 50)
     for j in range(0, 63):
-      draw.rectangle((10 + j * 20, 325 + yOffset, 10 + j * 20 + 20, 325 + yOffset - spectrum[j * 4] * 1 - 10), fill=color2)
-      draw.rectangle((15 + j * 20, 320 + yOffset, 15 + j * 20 + 10, 320 + yOffset - spectrum[j * 4] * 1), fill=color)
-
+      draw.rectangle((14 + j * 30, 325 + yOffset, 14 + j * 30 + 30, 325 + yOffset - spectrum[j * 4] * 1.3 - 10), fill=color2)
+      draw.rectangle((21 + j * 30, 317 + yOffset, 17 + j * 30 + 20, 325 + yOffset - spectrum[j * 4] * 1.3), fill=color)
 
     imBottom = imTop.transpose(Image.FLIP_TOP_BOTTOM)
 
-    im = Image.new("RGB", (1280, 720), "black")
+    im = Image.new("RGB", (1920, 1080), "black")
     im.paste(image, (0, 0))
     im.paste(imTop, (0, 0), mask=imTop)
     im.paste(imBottom, (0, 0), mask=imBottom)

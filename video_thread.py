@@ -46,7 +46,7 @@ class Worker(QtCore.QObject):
     else:
         # base images will be drawn while drawing the audio bars
         imBackground = None
-        
+
     self.progressBarSetText.emit('Loading audio file…')
     completeAudioArray = self.core.readAudioFile(inputFile)
 
@@ -61,7 +61,7 @@ class Worker(QtCore.QObject):
        '-y', # (optional) means overwrite the output file if it already exists.
        '-f', 'rawvideo',
        '-vcodec', 'rawvideo',
-       '-s', '1280x720', # size of one frame
+       '-s', '1920x1080', # size of one frame
        '-pix_fmt', 'rgb24',
        '-r', '30', # frames per second
        '-i', '-', # The input comes from a pipe
@@ -79,7 +79,7 @@ class Worker(QtCore.QObject):
       ffmpegCommand.append('-2')
 
     ffmpegCommand.append(outputFile)
-    
+
     out_pipe = sp.Popen(ffmpegCommand,
         stdin=sp.PIPE,stdout=sys.stdout, stderr=sys.stdout)
 
@@ -87,7 +87,7 @@ class Worker(QtCore.QObject):
     smoothConstantUp = 0.8
     lastSpectrum = None
     sampleSize = 1470
-    
+
     numpy.seterr(divide='ignore')
     bgI = 0
     for i in range(0, len(completeAudioArray), sampleSize):
